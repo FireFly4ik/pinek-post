@@ -10,11 +10,11 @@ import (
 	"time"
 )
 
-type AuthDatabase struct {
+type PostDatabase struct {
 	Database *gorm.DB
 }
 
-func ConnectDB(envConf *config.Config) *AuthDatabase {
+func ConnectDB(envConf *config.Config) *PostDatabase {
 	connectionString := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=UTC",
 		envConf.DB.Host,
@@ -61,11 +61,11 @@ func ConnectDB(envConf *config.Config) *AuthDatabase {
 
 	log.Info().Msg("connected to the database successfully")
 
-	return &AuthDatabase{
+	return &PostDatabase{
 		Database: database,
 	}
 }
-func (db *AuthDatabase) Close() error {
+func (db *PostDatabase) Close() error {
 	sqlDB, err := db.Database.DB()
 	if err != nil {
 		return err

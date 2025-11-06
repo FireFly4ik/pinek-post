@@ -8,11 +8,11 @@ import (
 
 type PostServiceServer struct {
 	pb.UnimplementedPostServiceServer
-	database *db.AuthDatabase
+	database *db.PostDatabase
 	envConf  *config.Config
 }
 
-func NewPostServer(db *db.AuthDatabase, cfg *config.Config) *PostServiceServer {
+func NewPostServer(db *db.PostDatabase, cfg *config.Config) *PostServiceServer {
 	return &PostServiceServer{
 		database: db,
 		envConf:  cfg,
