@@ -1,0 +1,284 @@
+syntax = "proto3";
+
+package post;
+option go_package = "./";
+
+// ----------- Service -----------
+
+service PostService {
+  // Post Management
+  rpc CreatePost (CreatePostRequest) returns (CreatePostResponse);
+
+  rpc UpdatePost (UpdatePostRequest) returns (UpdatePostResponse);
+
+  rpc GetPost (GetPostRequest) returns (GetPostResponse);
+  rpc GetPosts (GetPostsRequest) returns (GetPostsResponse);
+  rpc SearchPosts (SearchPostsRequest) returns (SearchPostsResponse);
+
+  rpc DeletePost (DeletePostRequest) returns (DeletePostResponse);
+
+  // Board Management
+  rpc CreateBoard (CreateBoardRequest) returns (CreateBoardResponse);
+
+  rpc UpdateBoard (UpdateBoardRequest) returns (UpdateBoardResponse);
+
+  rpc GetBoard (GetBoardRequest) returns (GetBoardResponse);
+  rpc GetBoards (GetBoardsRequest) returns (GetBoardsResponse);
+  rpc SearchBoards (SearchBoardsRequest) returns (SearchBoardsResponse);
+
+  rpc DeleteBoard (DeleteBoardRequest) returns (DeleteBoardResponse);
+
+  // Tag Management
+  rpc CreateTag (CreateTagRequest) returns (CreateTagResponse);
+
+  rpc GetTag (GetTagRequest) returns (GetTagResponse);
+  rpc SearchTags (SearchTagsRequest) returns (SearchTagsResponse);
+
+  // Additional Functionalities
+  rpc PinPostToBoard (PinPostToBoardRequest) returns (PinPostToBoardResponse);
+  rpc UnpinPostFromBoard (UnpinPostFromBoardRequest) returns (UnpinPostFromBoardResponse);
+
+  rpc AddTagToPost (AddTagToPostRequest) returns (AddTagToPostResponse);
+  rpc RemoveTagFromPost (RemoveTagFromPostRequest) returns (RemoveTagFromPostResponse);
+
+  rpc GetPostsByTag (GetPostsByTagRequest) returns (GetPostsByTagResponse);
+  rpc GetBoardsByPost (GetBoardsByPostRequest) returns (GetBoardsByPostResponse);
+}
+
+// ----------- Requests -----------
+
+// Post Management
+message CreatePostRequest {
+  string post_id = 1;
+  string user_id = 2;
+  string title = 3;
+  string description = 4;
+}
+
+message UpdatePostRequest {
+  string post_id = 1;
+  string user_id = 2;
+  string title = 3;
+  string description = 4;
+}
+
+message GetPostRequest {
+  string post_id = 1;
+}
+
+message GetPostsRequest {
+  repeated string post_ids = 1;
+}
+
+message SearchPostsRequest {
+  string query = 1;
+  string user_id = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+}
+
+message DeletePostRequest {
+  string post_id = 1;
+  string user_id = 2;
+}
+
+// Board Management
+message CreateBoardRequest {
+  string user_id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message UpdateBoardRequest {
+  string board_id = 1;
+  string user_id = 2;
+  string name = 3;
+  string description = 4;
+}
+
+message GetBoardRequest {
+  string board_id = 1;
+}
+
+message GetBoardsRequest {
+  repeated string board_ids = 1;
+}
+
+message SearchBoardsRequest {
+  string query = 1;
+  string user_id = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+}
+
+message DeleteBoardRequest {
+  string board_id = 1;
+  string user_id = 2;
+}
+
+message CreateTagRequest {
+  string name = 1;
+}
+
+message GetTagRequest {
+  string tag_id = 1;
+}
+
+message SearchTagsRequest {
+  string query = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+// Additional Functionalities
+
+message PinPostToBoardRequest {
+  string post_id = 1;
+  string board_id = 2;
+  string user_id = 3;
+}
+
+message UnpinPostFromBoardRequest {
+  string post_id = 1;
+  string board_id = 2;
+  string user_id = 3;
+}
+
+message AddTagToPostRequest {
+  string post_id = 1;
+  string tag_id = 2;
+  string user_id = 3;
+}
+
+message RemoveTagFromPostRequest {
+  string post_id = 1;
+  string tag_id = 2;
+  string user_id = 3;
+}
+
+message GetPostsByTagRequest {
+  string tag_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message GetBoardsByPostRequest {
+  string post_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+// ----------- Responses -----------
+
+// Post Management
+message CreatePostResponse {
+  string post_id = 1;
+  string message = 2;
+}
+
+message UpdatePostResponse {
+  string message = 1;
+}
+
+message GetPostResponse {
+  Post post = 1;
+}
+
+message GetPostsResponse {
+  repeated Post posts = 1;
+}
+
+message SearchPostsResponse {
+  repeated Post posts = 1;
+}
+
+message DeletePostResponse {
+  string message = 1;
+}
+
+// Board Management
+message CreateBoardResponse {
+  string board_id = 1;
+  string message = 2;
+}
+
+message UpdateBoardResponse {
+  string message = 1;
+}
+
+message GetBoardResponse {
+  Board board = 1;
+}
+
+message GetBoardsResponse {
+  repeated Board boards = 1;
+}
+
+message SearchBoardsResponse {
+  repeated Board boards = 1;
+}
+
+message DeleteBoardResponse {
+  string message = 1;
+}
+
+// Additional Functionalities
+message CreateTagResponse {
+  string tag_id = 1;
+  string message = 2;
+}
+
+message GetTagResponse {
+  string tag_id = 1;
+  string name = 2;
+}
+
+message SearchTagsResponse {
+  repeated Tag tags = 1;
+}
+
+message PinPostToBoardResponse {
+  string message = 1;
+}
+
+message UnpinPostFromBoardResponse {
+  string message = 1;
+}
+
+message AddTagToPostResponse {
+  string message = 1;
+}
+
+message RemoveTagFromPostResponse {
+  string message = 1;
+}
+
+message GetPostsByTagResponse {
+  repeated Post posts = 1;
+}
+
+message GetBoardsByPostResponse {
+  repeated Board boards = 1;
+}
+
+// ------------- Types -------------
+
+message Post {
+  string post_id = 1;
+  string user_id = 2;
+  string title = 3;
+  string description = 4;
+  string link = 5;
+}
+
+message Board {
+  string board_id = 1;
+  string user_id = 2;
+  string name = 3;
+  string description = 4;
+}
+
+message Tag {
+  string tag_id = 1;
+  string name = 2;
+}
