@@ -3,6 +3,8 @@ package config
 import (
 	"fmt"
 	"os"
+	"strconv"
+	"strings"
 )
 
 type Config struct {
@@ -11,6 +13,7 @@ type Config struct {
 	ProductionType string
 
 	Consul Consul
+	DB     Database
 }
 
 type Consul struct {
@@ -22,7 +25,37 @@ type Consul struct {
 	DeregisterTTL string
 }
 
+type Database struct {
+	Host            string
+	Port            string
+	User            string
+	Name            string
+	Password        string
+	SSLMode         string
+	MaxIdleConns    int
+	MaxOpenConns    int
+	ConnMaxLifetime int
+}
+
 func NewEnvConfig() *Config {
+	maxIdleConnsStr := os.Getenv("DATABASE_MAX_IDLE_CONNS")
+	maxIdleConns, err := strconv.Atoi(maxIdleConnsStr)
+	if err != nil {
+		panic(fmt.Errorf("NewEnvConfig: error converting maxIdleConnsStr: %w", err))
+	}
+
+	maxOpenConnsStr := os.Getenv("DATABASE_MAX_OPEN_CONNS")
+	maxOpenConns, err := strconv.Atoi(maxOpenConnsStr)
+	if err != nil {
+		panic(fmt.Errorf("NewEnvConfig: error converting maxOpenConnsStr: %w", err))
+	}
+
+	connMaxLifetimeStr := os.Getenv("DATABASE_CONN_MAX_LIFETIME_IN_SECONDS")
+	connMaxLifetime, err := strconv.Atoi(connMaxLifetimeStr)
+	if err != nil {
+		panic(fmt.Errorf("NewEnvConfig: error converting connMaxLifetimeStr: %w", err))
+	}
+
 	return &Config{
 		Address:        os.Getenv("ADDRESS"),
 		Port:           os.Getenv("PORT"),
@@ -36,17 +69,29 @@ func NewEnvConfig() *Config {
 			RefreshTTL:    os.Getenv("CONSUL_REFRESH_TTL"),
 			DeregisterTTL: os.Getenv("CONSUL_DEREGISTER_TTL"),
 		},
+
+		DB: Database{
+			Host:            os.Getenv("DATABASE_HOST"),
+			Port:            os.Getenv("DATABASE_PORT"),
+			User:            os.Getenv("DATABASE_USER"),
+			Name:            os.Getenv("DATABASE_NAME"),
+			Password:        os.Getenv("DATABASE_PASSWORD"),
+			SSLMode:         os.Getenv("DATABASE_SSL_MODE"),
+			MaxIdleConns:    maxIdleConns,
+			MaxOpenConns:    maxOpenConns,
+			ConnMaxLifetime: connMaxLifetime,
+		},
 	}
 }
 
 func PrintConfigWithHiddenSecrets(config *Config) {
 	// Функция для маскировки секретов
-	//mask := func(s string) string {
-	//	if s == "" {
-	//		return ""
-	//	}
-	//	return strings.Repeat("*", len(s))
-	//}
+	mask := func(s string) string {
+		if s == "" {
+			return ""
+		}
+		return strings.Repeat("*", len(s))
+	}
 
 	fmt.Println("========== Configuration ==========\n")
 
@@ -62,6 +107,17 @@ func PrintConfigWithHiddenSecrets(config *Config) {
 	fmt.Printf("\tRegisterTTL: %s\n", config.Consul.RegisterTTL)
 	fmt.Printf("\tRefreshTTL: %s\n", config.Consul.RefreshTTL)
 	fmt.Printf("\tDeregisterTTL: %s\n", config.Consul.DeregisterTTL)
+
+	fmt.Println("\nDatabase Configuration:")
+	fmt.Printf("\tHost: %s\n", config.DB.Host)
+	fmt.Printf("\tPort: %s\n", config.DB.Port)
+	fmt.Printf("\tUser: %s\n", config.DB.User)
+	fmt.Printf("\tName: %s\n", config.DB.Name)
+	fmt.Printf("\tPassword: %s\n", mask(config.DB.Password))
+	fmt.Printf("\tSSLMode: %s\n", config.DB.SSLMode)
+	fmt.Printf("\tMaxIdleConns: %d\n", config.DB.MaxIdleConns)
+	fmt.Printf("\tMaxOpenConns: %d\n", config.DB.MaxOpenConns)
+	fmt.Printf("\tConnMaxLifetime: %d\n", config.DB.ConnMaxLifetime)
 
 	fmt.Println("\n===================================")
 }

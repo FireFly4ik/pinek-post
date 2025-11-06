@@ -2,16 +2,19 @@ package grpc
 
 import (
 	"post/internal/config"
+	"post/internal/db"
 	pb "post/internal/proto"
 )
 
 type PostServiceServer struct {
 	pb.UnimplementedPostServiceServer
-	envConf *config.Config
+	database *db.AuthDatabase
+	envConf  *config.Config
 }
 
-func NewPostServer(cfg *config.Config) *PostServiceServer {
+func NewPostServer(db *db.AuthDatabase, cfg *config.Config) *PostServiceServer {
 	return &PostServiceServer{
-		envConf: cfg,
+		database: db,
+		envConf:  cfg,
 	}
 }
