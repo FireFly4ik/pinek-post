@@ -12,6 +12,7 @@ import (
 	"os/signal"
 	"post/internal/config"
 	"post/internal/consul"
+	"post/internal/db"
 	grpcService "post/internal/grpc"
 	"post/internal/logger"
 	pb "post/internal/proto"
@@ -28,6 +29,8 @@ func main() {
 
 	logger.Setup(envConf.ProductionType)
 
+	database := db.ConnectDB(envConf)
+
 	consulProvider := consul.NewProvider(envConf)
 	log.Info().Msg("service registered in Consul")
 
@@ -36,7 +39,7 @@ func main() {
 		log.Fatal().Err(err).Msg("failed to listen: %v")
 	}
 
-	server := grpcService.NewPostServer(envConf)
+	server := grpcService.NewPostServer(database, envConf)
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterPostServiceServer(grpcServer, server)
