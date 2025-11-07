@@ -40,9 +40,6 @@ service PostService {
 
   rpc AddTagToPost (AddTagToPostRequest) returns (AddTagToPostResponse);
   rpc RemoveTagFromPost (RemoveTagFromPostRequest) returns (RemoveTagFromPostResponse);
-
-  rpc GetPostsByTag (GetPostsByTagRequest) returns (GetPostsByTagResponse);
-  rpc GetBoardsByPost (GetBoardsByPostRequest) returns (GetBoardsByPostResponse);
 }
 
 // ----------- Requests -----------
@@ -72,9 +69,10 @@ message GetPostsRequest {
 
 message SearchPostsRequest {
   string query = 1;
-  string user_id = 2;
-  int32 limit = 3;
-  int32 offset = 4;
+  repeated string user_id = 2;
+  repeated string tag_id = 3;
+  int32 limit = 4;
+  int32 offset = 5;
 }
 
 message DeletePostRequest {
@@ -106,9 +104,10 @@ message GetBoardsRequest {
 
 message SearchBoardsRequest {
   string query = 1;
-  string user_id = 2;
-  int32 limit = 3;
-  int32 offset = 4;
+  repeated string user_id = 2;
+  repeated string post_id = 3;
+  int32 limit = 4;
+  int32 offset = 5;
 }
 
 message DeleteBoardRequest {
@@ -154,18 +153,6 @@ message RemoveTagFromPostRequest {
   string post_id = 1;
   string tag_id = 2;
   string user_id = 3;
-}
-
-message GetPostsByTagRequest {
-  string tag_id = 1;
-  int32 limit = 2;
-  int32 offset = 3;
-}
-
-message GetBoardsByPostRequest {
-  string post_id = 1;
-  int32 limit = 2;
-  int32 offset = 3;
 }
 
 // ----------- Responses -----------
@@ -252,15 +239,6 @@ message AddTagToPostResponse {
 message RemoveTagFromPostResponse {
   string message = 1;
 }
-
-message GetPostsByTagResponse {
-  repeated Post posts = 1;
-}
-
-message GetBoardsByPostResponse {
-  repeated Board boards = 1;
-}
-
 // ------------- Types -------------
 
 message Post {
@@ -269,6 +247,7 @@ message Post {
   string title = 3;
   string description = 4;
   string link = 5;
+  repeated string tag_ids = 6;
 }
 
 message Board {
@@ -276,6 +255,7 @@ message Board {
   string user_id = 2;
   string name = 3;
   string description = 4;
+  repeated string post_ids = 5;
 }
 
 message Tag {

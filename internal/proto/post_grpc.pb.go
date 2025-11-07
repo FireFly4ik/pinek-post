@@ -38,8 +38,6 @@ const (
 	PostService_UnpinPostFromBoard_FullMethodName = "/post.PostService/UnpinPostFromBoard"
 	PostService_AddTagToPost_FullMethodName       = "/post.PostService/AddTagToPost"
 	PostService_RemoveTagFromPost_FullMethodName  = "/post.PostService/RemoveTagFromPost"
-	PostService_GetPostsByTag_FullMethodName      = "/post.PostService/GetPostsByTag"
-	PostService_GetBoardsByPost_FullMethodName    = "/post.PostService/GetBoardsByPost"
 )
 
 // PostServiceClient is the client API for PostService service.
@@ -69,8 +67,6 @@ type PostServiceClient interface {
 	UnpinPostFromBoard(ctx context.Context, in *UnpinPostFromBoardRequest, opts ...grpc.CallOption) (*UnpinPostFromBoardResponse, error)
 	AddTagToPost(ctx context.Context, in *AddTagToPostRequest, opts ...grpc.CallOption) (*AddTagToPostResponse, error)
 	RemoveTagFromPost(ctx context.Context, in *RemoveTagFromPostRequest, opts ...grpc.CallOption) (*RemoveTagFromPostResponse, error)
-	GetPostsByTag(ctx context.Context, in *GetPostsByTagRequest, opts ...grpc.CallOption) (*GetPostsByTagResponse, error)
-	GetBoardsByPost(ctx context.Context, in *GetBoardsByPostRequest, opts ...grpc.CallOption) (*GetBoardsByPostResponse, error)
 }
 
 type postServiceClient struct {
@@ -271,26 +267,6 @@ func (c *postServiceClient) RemoveTagFromPost(ctx context.Context, in *RemoveTag
 	return out, nil
 }
 
-func (c *postServiceClient) GetPostsByTag(ctx context.Context, in *GetPostsByTagRequest, opts ...grpc.CallOption) (*GetPostsByTagResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetPostsByTagResponse)
-	err := c.cc.Invoke(ctx, PostService_GetPostsByTag_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *postServiceClient) GetBoardsByPost(ctx context.Context, in *GetBoardsByPostRequest, opts ...grpc.CallOption) (*GetBoardsByPostResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetBoardsByPostResponse)
-	err := c.cc.Invoke(ctx, PostService_GetBoardsByPost_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // PostServiceServer is the server API for PostService service.
 // All implementations must embed UnimplementedPostServiceServer
 // for forward compatibility.
@@ -318,8 +294,6 @@ type PostServiceServer interface {
 	UnpinPostFromBoard(context.Context, *UnpinPostFromBoardRequest) (*UnpinPostFromBoardResponse, error)
 	AddTagToPost(context.Context, *AddTagToPostRequest) (*AddTagToPostResponse, error)
 	RemoveTagFromPost(context.Context, *RemoveTagFromPostRequest) (*RemoveTagFromPostResponse, error)
-	GetPostsByTag(context.Context, *GetPostsByTagRequest) (*GetPostsByTagResponse, error)
-	GetBoardsByPost(context.Context, *GetBoardsByPostRequest) (*GetBoardsByPostResponse, error)
 	mustEmbedUnimplementedPostServiceServer()
 }
 
@@ -386,12 +360,6 @@ func (UnimplementedPostServiceServer) AddTagToPost(context.Context, *AddTagToPos
 }
 func (UnimplementedPostServiceServer) RemoveTagFromPost(context.Context, *RemoveTagFromPostRequest) (*RemoveTagFromPostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveTagFromPost not implemented")
-}
-func (UnimplementedPostServiceServer) GetPostsByTag(context.Context, *GetPostsByTagRequest) (*GetPostsByTagResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPostsByTag not implemented")
-}
-func (UnimplementedPostServiceServer) GetBoardsByPost(context.Context, *GetBoardsByPostRequest) (*GetBoardsByPostResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBoardsByPost not implemented")
 }
 func (UnimplementedPostServiceServer) mustEmbedUnimplementedPostServiceServer() {}
 func (UnimplementedPostServiceServer) testEmbeddedByValue()                     {}
@@ -756,42 +724,6 @@ func _PostService_RemoveTagFromPost_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PostService_GetPostsByTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPostsByTagRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PostServiceServer).GetPostsByTag(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PostService_GetPostsByTag_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PostServiceServer).GetPostsByTag(ctx, req.(*GetPostsByTagRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PostService_GetBoardsByPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBoardsByPostRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PostServiceServer).GetBoardsByPost(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PostService_GetBoardsByPost_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PostServiceServer).GetBoardsByPost(ctx, req.(*GetBoardsByPostRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // PostService_ServiceDesc is the grpc.ServiceDesc for PostService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -874,14 +806,6 @@ var PostService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveTagFromPost",
 			Handler:    _PostService_RemoveTagFromPost_Handler,
-		},
-		{
-			MethodName: "GetPostsByTag",
-			Handler:    _PostService_GetPostsByTag_Handler,
-		},
-		{
-			MethodName: "GetBoardsByPost",
-			Handler:    _PostService_GetBoardsByPost_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

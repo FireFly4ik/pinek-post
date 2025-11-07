@@ -249,9 +249,10 @@ func (x *GetPostsRequest) GetPostIds() []string {
 type SearchPostsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Limit         int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	UserId        []string               `protobuf:"bytes,2,rep,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	TagId         []string               `protobuf:"bytes,3,rep,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
+	Limit         int32                  `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        int32                  `protobuf:"varint,5,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -293,11 +294,18 @@ func (x *SearchPostsRequest) GetQuery() string {
 	return ""
 }
 
-func (x *SearchPostsRequest) GetUserId() string {
+func (x *SearchPostsRequest) GetUserId() []string {
 	if x != nil {
 		return x.UserId
 	}
-	return ""
+	return nil
+}
+
+func (x *SearchPostsRequest) GetTagId() []string {
+	if x != nil {
+		return x.TagId
+	}
+	return nil
 }
 
 func (x *SearchPostsRequest) GetLimit() int32 {
@@ -586,9 +594,10 @@ func (x *GetBoardsRequest) GetBoardIds() []string {
 type SearchBoardsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Limit         int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	UserId        []string               `protobuf:"bytes,2,rep,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	PostId        []string               `protobuf:"bytes,3,rep,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
+	Limit         int32                  `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        int32                  `protobuf:"varint,5,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -630,11 +639,18 @@ func (x *SearchBoardsRequest) GetQuery() string {
 	return ""
 }
 
-func (x *SearchBoardsRequest) GetUserId() string {
+func (x *SearchBoardsRequest) GetUserId() []string {
 	if x != nil {
 		return x.UserId
 	}
-	return ""
+	return nil
+}
+
+func (x *SearchBoardsRequest) GetPostId() []string {
+	if x != nil {
+		return x.PostId
+	}
+	return nil
 }
 
 func (x *SearchBoardsRequest) GetLimit() int32 {
@@ -2170,7 +2186,6 @@ func (x *GetBoardsByPostResponse) GetBoards() []*Board {
 	return nil
 }
 
-// ------------- Types -------------
 type Post struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	PostId        string                 `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
@@ -2178,6 +2193,7 @@ type Post struct {
 	Title         string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
 	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
 	Link          string                 `protobuf:"bytes,5,opt,name=link,proto3" json:"link,omitempty"`
+	TagIds        []string               `protobuf:"bytes,6,rep,name=tag_ids,json=tagIds,proto3" json:"tag_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2247,12 +2263,20 @@ func (x *Post) GetLink() string {
 	return ""
 }
 
+func (x *Post) GetTagIds() []string {
+	if x != nil {
+		return x.TagIds
+	}
+	return nil
+}
+
 type Board struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	BoardId       string                 `protobuf:"bytes,1,opt,name=board_id,json=boardId,proto3" json:"board_id,omitempty"`
 	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
 	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	PostIds       []string               `protobuf:"bytes,5,rep,name=post_ids,json=postIds,proto3" json:"post_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2313,6 +2337,13 @@ func (x *Board) GetDescription() string {
 		return x.Description
 	}
 	return ""
+}
+
+func (x *Board) GetPostIds() []string {
+	if x != nil {
+		return x.PostIds
+	}
+	return nil
 }
 
 type Tag struct {
@@ -2386,12 +2417,13 @@ const file_post_proto_rawDesc = "" +
 	"\x0eGetPostRequest\x12\x17\n" +
 	"\apost_id\x18\x01 \x01(\tR\x06postId\",\n" +
 	"\x0fGetPostsRequest\x12\x19\n" +
-	"\bpost_ids\x18\x01 \x03(\tR\apostIds\"q\n" +
+	"\bpost_ids\x18\x01 \x03(\tR\apostIds\"\x88\x01\n" +
 	"\x12SearchPostsRequest\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x14\n" +
-	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x04 \x01(\x05R\x06offset\"E\n" +
+	"\auser_id\x18\x02 \x03(\tR\x06userId\x12\x15\n" +
+	"\x06tag_id\x18\x03 \x03(\tR\x05tagId\x12\x14\n" +
+	"\x05limit\x18\x04 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x05 \x01(\x05R\x06offset\"E\n" +
 	"\x11DeletePostRequest\x12\x17\n" +
 	"\apost_id\x18\x01 \x01(\tR\x06postId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\"c\n" +
@@ -2407,12 +2439,13 @@ const file_post_proto_rawDesc = "" +
 	"\x0fGetBoardRequest\x12\x19\n" +
 	"\bboard_id\x18\x01 \x01(\tR\aboardId\"/\n" +
 	"\x10GetBoardsRequest\x12\x1b\n" +
-	"\tboard_ids\x18\x01 \x03(\tR\bboardIds\"r\n" +
+	"\tboard_ids\x18\x01 \x03(\tR\bboardIds\"\x8b\x01\n" +
 	"\x13SearchBoardsRequest\x12\x14\n" +
 	"\x05query\x18\x01 \x01(\tR\x05query\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x14\n" +
-	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x04 \x01(\x05R\x06offset\"H\n" +
+	"\auser_id\x18\x02 \x03(\tR\x06userId\x12\x17\n" +
+	"\apost_id\x18\x03 \x03(\tR\x06postId\x12\x14\n" +
+	"\x05limit\x18\x04 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x05 \x01(\x05R\x06offset\"H\n" +
 	"\x12DeleteBoardRequest\x12\x19\n" +
 	"\bboard_id\x18\x01 \x01(\tR\aboardId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\"&\n" +
@@ -2497,21 +2530,24 @@ const file_post_proto_rawDesc = "" +
 	"\x05posts\x18\x01 \x03(\v2\n" +
 	".post.PostR\x05posts\">\n" +
 	"\x17GetBoardsByPostResponse\x12#\n" +
-	"\x06boards\x18\x01 \x03(\v2\v.post.BoardR\x06boards\"\x84\x01\n" +
+	"\x06boards\x18\x01 \x03(\v2\v.post.BoardR\x06boards\"\x9d\x01\n" +
 	"\x04Post\x12\x17\n" +
 	"\apost_id\x18\x01 \x01(\tR\x06postId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05title\x18\x03 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x12\n" +
-	"\x04link\x18\x05 \x01(\tR\x04link\"q\n" +
+	"\x04link\x18\x05 \x01(\tR\x04link\x12\x17\n" +
+	"\atag_ids\x18\x06 \x03(\tR\x06tagIds\"\x8c\x01\n" +
 	"\x05Board\x12\x19\n" +
 	"\bboard_id\x18\x01 \x01(\tR\aboardId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x12\n" +
 	"\x04name\x18\x03 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x04 \x01(\tR\vdescription\"0\n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x19\n" +
+	"\bpost_ids\x18\x05 \x03(\tR\apostIds\"0\n" +
 	"\x03Tag\x12\x15\n" +
 	"\x06tag_id\x18\x01 \x01(\tR\x05tagId\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name2\xa4\v\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name2\x8a\n" +
+	"\n" +
 	"\vPostService\x12?\n" +
 	"\n" +
 	"CreatePost\x12\x17.post.CreatePostRequest\x1a\x18.post.CreatePostResponse\x12?\n" +
@@ -2535,9 +2571,7 @@ const file_post_proto_rawDesc = "" +
 	"\x0ePinPostToBoard\x12\x1b.post.PinPostToBoardRequest\x1a\x1c.post.PinPostToBoardResponse\x12W\n" +
 	"\x12UnpinPostFromBoard\x12\x1f.post.UnpinPostFromBoardRequest\x1a .post.UnpinPostFromBoardResponse\x12E\n" +
 	"\fAddTagToPost\x12\x19.post.AddTagToPostRequest\x1a\x1a.post.AddTagToPostResponse\x12T\n" +
-	"\x11RemoveTagFromPost\x12\x1e.post.RemoveTagFromPostRequest\x1a\x1f.post.RemoveTagFromPostResponse\x12H\n" +
-	"\rGetPostsByTag\x12\x1a.post.GetPostsByTagRequest\x1a\x1b.post.GetPostsByTagResponse\x12N\n" +
-	"\x0fGetBoardsByPost\x12\x1c.post.GetBoardsByPostRequest\x1a\x1d.post.GetBoardsByPostResponseB\x04Z\x02./b\x06proto3"
+	"\x11RemoveTagFromPost\x12\x1e.post.RemoveTagFromPostRequest\x1a\x1f.post.RemoveTagFromPostResponseB\x04Z\x02./b\x06proto3"
 
 var (
 	file_post_proto_rawDescOnce sync.Once
@@ -2628,31 +2662,27 @@ var file_post_proto_depIdxs = []int32{
 	16, // 25: post.PostService.UnpinPostFromBoard:input_type -> post.UnpinPostFromBoardRequest
 	17, // 26: post.PostService.AddTagToPost:input_type -> post.AddTagToPostRequest
 	18, // 27: post.PostService.RemoveTagFromPost:input_type -> post.RemoveTagFromPostRequest
-	19, // 28: post.PostService.GetPostsByTag:input_type -> post.GetPostsByTagRequest
-	20, // 29: post.PostService.GetBoardsByPost:input_type -> post.GetBoardsByPostRequest
-	21, // 30: post.PostService.CreatePost:output_type -> post.CreatePostResponse
-	22, // 31: post.PostService.UpdatePost:output_type -> post.UpdatePostResponse
-	23, // 32: post.PostService.GetPost:output_type -> post.GetPostResponse
-	24, // 33: post.PostService.GetPosts:output_type -> post.GetPostsResponse
-	25, // 34: post.PostService.SearchPosts:output_type -> post.SearchPostsResponse
-	26, // 35: post.PostService.DeletePost:output_type -> post.DeletePostResponse
-	27, // 36: post.PostService.CreateBoard:output_type -> post.CreateBoardResponse
-	28, // 37: post.PostService.UpdateBoard:output_type -> post.UpdateBoardResponse
-	29, // 38: post.PostService.GetBoard:output_type -> post.GetBoardResponse
-	30, // 39: post.PostService.GetBoards:output_type -> post.GetBoardsResponse
-	31, // 40: post.PostService.SearchBoards:output_type -> post.SearchBoardsResponse
-	32, // 41: post.PostService.DeleteBoard:output_type -> post.DeleteBoardResponse
-	33, // 42: post.PostService.CreateTag:output_type -> post.CreateTagResponse
-	34, // 43: post.PostService.GetTag:output_type -> post.GetTagResponse
-	35, // 44: post.PostService.SearchTags:output_type -> post.SearchTagsResponse
-	36, // 45: post.PostService.PinPostToBoard:output_type -> post.PinPostToBoardResponse
-	37, // 46: post.PostService.UnpinPostFromBoard:output_type -> post.UnpinPostFromBoardResponse
-	38, // 47: post.PostService.AddTagToPost:output_type -> post.AddTagToPostResponse
-	39, // 48: post.PostService.RemoveTagFromPost:output_type -> post.RemoveTagFromPostResponse
-	40, // 49: post.PostService.GetPostsByTag:output_type -> post.GetPostsByTagResponse
-	41, // 50: post.PostService.GetBoardsByPost:output_type -> post.GetBoardsByPostResponse
-	30, // [30:51] is the sub-list for method output_type
-	9,  // [9:30] is the sub-list for method input_type
+	21, // 28: post.PostService.CreatePost:output_type -> post.CreatePostResponse
+	22, // 29: post.PostService.UpdatePost:output_type -> post.UpdatePostResponse
+	23, // 30: post.PostService.GetPost:output_type -> post.GetPostResponse
+	24, // 31: post.PostService.GetPosts:output_type -> post.GetPostsResponse
+	25, // 32: post.PostService.SearchPosts:output_type -> post.SearchPostsResponse
+	26, // 33: post.PostService.DeletePost:output_type -> post.DeletePostResponse
+	27, // 34: post.PostService.CreateBoard:output_type -> post.CreateBoardResponse
+	28, // 35: post.PostService.UpdateBoard:output_type -> post.UpdateBoardResponse
+	29, // 36: post.PostService.GetBoard:output_type -> post.GetBoardResponse
+	30, // 37: post.PostService.GetBoards:output_type -> post.GetBoardsResponse
+	31, // 38: post.PostService.SearchBoards:output_type -> post.SearchBoardsResponse
+	32, // 39: post.PostService.DeleteBoard:output_type -> post.DeleteBoardResponse
+	33, // 40: post.PostService.CreateTag:output_type -> post.CreateTagResponse
+	34, // 41: post.PostService.GetTag:output_type -> post.GetTagResponse
+	35, // 42: post.PostService.SearchTags:output_type -> post.SearchTagsResponse
+	36, // 43: post.PostService.PinPostToBoard:output_type -> post.PinPostToBoardResponse
+	37, // 44: post.PostService.UnpinPostFromBoard:output_type -> post.UnpinPostFromBoardResponse
+	38, // 45: post.PostService.AddTagToPost:output_type -> post.AddTagToPostResponse
+	39, // 46: post.PostService.RemoveTagFromPost:output_type -> post.RemoveTagFromPostResponse
+	28, // [28:47] is the sub-list for method output_type
+	9,  // [9:28] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
 	9,  // [9:9] is the sub-list for extension extendee
 	0,  // [0:9] is the sub-list for field type_name
