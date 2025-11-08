@@ -1107,126 +1107,6 @@ func (x *RemoveTagFromPostRequest) GetUserId() string {
 	return ""
 }
 
-type GetPostsByTagRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TagId         string                 `protobuf:"bytes,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
-	Limit         int32                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetPostsByTagRequest) Reset() {
-	*x = GetPostsByTagRequest{}
-	mi := &file_post_proto_msgTypes[19]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetPostsByTagRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetPostsByTagRequest) ProtoMessage() {}
-
-func (x *GetPostsByTagRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[19]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetPostsByTagRequest.ProtoReflect.Descriptor instead.
-func (*GetPostsByTagRequest) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{19}
-}
-
-func (x *GetPostsByTagRequest) GetTagId() string {
-	if x != nil {
-		return x.TagId
-	}
-	return ""
-}
-
-func (x *GetPostsByTagRequest) GetLimit() int32 {
-	if x != nil {
-		return x.Limit
-	}
-	return 0
-}
-
-func (x *GetPostsByTagRequest) GetOffset() int32 {
-	if x != nil {
-		return x.Offset
-	}
-	return 0
-}
-
-type GetBoardsByPostRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PostId        string                 `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
-	Limit         int32                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetBoardsByPostRequest) Reset() {
-	*x = GetBoardsByPostRequest{}
-	mi := &file_post_proto_msgTypes[20]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetBoardsByPostRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetBoardsByPostRequest) ProtoMessage() {}
-
-func (x *GetBoardsByPostRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[20]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetBoardsByPostRequest.ProtoReflect.Descriptor instead.
-func (*GetBoardsByPostRequest) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{20}
-}
-
-func (x *GetBoardsByPostRequest) GetPostId() string {
-	if x != nil {
-		return x.PostId
-	}
-	return ""
-}
-
-func (x *GetBoardsByPostRequest) GetLimit() int32 {
-	if x != nil {
-		return x.Limit
-	}
-	return 0
-}
-
-func (x *GetBoardsByPostRequest) GetOffset() int32 {
-	if x != nil {
-		return x.Offset
-	}
-	return 0
-}
-
 // Post Management
 type CreatePostResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -1238,7 +1118,7 @@ type CreatePostResponse struct {
 
 func (x *CreatePostResponse) Reset() {
 	*x = CreatePostResponse{}
-	mi := &file_post_proto_msgTypes[21]
+	mi := &file_post_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1250,7 +1130,7 @@ func (x *CreatePostResponse) String() string {
 func (*CreatePostResponse) ProtoMessage() {}
 
 func (x *CreatePostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[21]
+	mi := &file_post_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1263,7 +1143,7 @@ func (x *CreatePostResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreatePostResponse.ProtoReflect.Descriptor instead.
 func (*CreatePostResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{21}
+	return file_post_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *CreatePostResponse) GetPostId() string {
@@ -1289,7 +1169,7 @@ type UpdatePostResponse struct {
 
 func (x *UpdatePostResponse) Reset() {
 	*x = UpdatePostResponse{}
-	mi := &file_post_proto_msgTypes[22]
+	mi := &file_post_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1301,7 +1181,7 @@ func (x *UpdatePostResponse) String() string {
 func (*UpdatePostResponse) ProtoMessage() {}
 
 func (x *UpdatePostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[22]
+	mi := &file_post_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1314,7 +1194,7 @@ func (x *UpdatePostResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePostResponse.ProtoReflect.Descriptor instead.
 func (*UpdatePostResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{22}
+	return file_post_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *UpdatePostResponse) GetMessage() string {
@@ -1333,7 +1213,7 @@ type GetPostResponse struct {
 
 func (x *GetPostResponse) Reset() {
 	*x = GetPostResponse{}
-	mi := &file_post_proto_msgTypes[23]
+	mi := &file_post_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1345,7 +1225,7 @@ func (x *GetPostResponse) String() string {
 func (*GetPostResponse) ProtoMessage() {}
 
 func (x *GetPostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[23]
+	mi := &file_post_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1358,7 +1238,7 @@ func (x *GetPostResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPostResponse.ProtoReflect.Descriptor instead.
 func (*GetPostResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{23}
+	return file_post_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetPostResponse) GetPost() *Post {
@@ -1377,7 +1257,7 @@ type GetPostsResponse struct {
 
 func (x *GetPostsResponse) Reset() {
 	*x = GetPostsResponse{}
-	mi := &file_post_proto_msgTypes[24]
+	mi := &file_post_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1389,7 +1269,7 @@ func (x *GetPostsResponse) String() string {
 func (*GetPostsResponse) ProtoMessage() {}
 
 func (x *GetPostsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[24]
+	mi := &file_post_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1402,7 +1282,7 @@ func (x *GetPostsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetPostsResponse.ProtoReflect.Descriptor instead.
 func (*GetPostsResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{24}
+	return file_post_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *GetPostsResponse) GetPosts() []*Post {
@@ -1421,7 +1301,7 @@ type SearchPostsResponse struct {
 
 func (x *SearchPostsResponse) Reset() {
 	*x = SearchPostsResponse{}
-	mi := &file_post_proto_msgTypes[25]
+	mi := &file_post_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1433,7 +1313,7 @@ func (x *SearchPostsResponse) String() string {
 func (*SearchPostsResponse) ProtoMessage() {}
 
 func (x *SearchPostsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[25]
+	mi := &file_post_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1446,7 +1326,7 @@ func (x *SearchPostsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchPostsResponse.ProtoReflect.Descriptor instead.
 func (*SearchPostsResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{25}
+	return file_post_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *SearchPostsResponse) GetPosts() []*Post {
@@ -1465,7 +1345,7 @@ type DeletePostResponse struct {
 
 func (x *DeletePostResponse) Reset() {
 	*x = DeletePostResponse{}
-	mi := &file_post_proto_msgTypes[26]
+	mi := &file_post_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1477,7 +1357,7 @@ func (x *DeletePostResponse) String() string {
 func (*DeletePostResponse) ProtoMessage() {}
 
 func (x *DeletePostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[26]
+	mi := &file_post_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1490,7 +1370,7 @@ func (x *DeletePostResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeletePostResponse.ProtoReflect.Descriptor instead.
 func (*DeletePostResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{26}
+	return file_post_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *DeletePostResponse) GetMessage() string {
@@ -1511,7 +1391,7 @@ type CreateBoardResponse struct {
 
 func (x *CreateBoardResponse) Reset() {
 	*x = CreateBoardResponse{}
-	mi := &file_post_proto_msgTypes[27]
+	mi := &file_post_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1523,7 +1403,7 @@ func (x *CreateBoardResponse) String() string {
 func (*CreateBoardResponse) ProtoMessage() {}
 
 func (x *CreateBoardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[27]
+	mi := &file_post_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1536,7 +1416,7 @@ func (x *CreateBoardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateBoardResponse.ProtoReflect.Descriptor instead.
 func (*CreateBoardResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{27}
+	return file_post_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *CreateBoardResponse) GetBoardId() string {
@@ -1562,7 +1442,7 @@ type UpdateBoardResponse struct {
 
 func (x *UpdateBoardResponse) Reset() {
 	*x = UpdateBoardResponse{}
-	mi := &file_post_proto_msgTypes[28]
+	mi := &file_post_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1574,7 +1454,7 @@ func (x *UpdateBoardResponse) String() string {
 func (*UpdateBoardResponse) ProtoMessage() {}
 
 func (x *UpdateBoardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[28]
+	mi := &file_post_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1587,7 +1467,7 @@ func (x *UpdateBoardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateBoardResponse.ProtoReflect.Descriptor instead.
 func (*UpdateBoardResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{28}
+	return file_post_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *UpdateBoardResponse) GetMessage() string {
@@ -1606,7 +1486,7 @@ type GetBoardResponse struct {
 
 func (x *GetBoardResponse) Reset() {
 	*x = GetBoardResponse{}
-	mi := &file_post_proto_msgTypes[29]
+	mi := &file_post_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1618,7 +1498,7 @@ func (x *GetBoardResponse) String() string {
 func (*GetBoardResponse) ProtoMessage() {}
 
 func (x *GetBoardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[29]
+	mi := &file_post_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1631,7 +1511,7 @@ func (x *GetBoardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBoardResponse.ProtoReflect.Descriptor instead.
 func (*GetBoardResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{29}
+	return file_post_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetBoardResponse) GetBoard() *Board {
@@ -1650,7 +1530,7 @@ type GetBoardsResponse struct {
 
 func (x *GetBoardsResponse) Reset() {
 	*x = GetBoardsResponse{}
-	mi := &file_post_proto_msgTypes[30]
+	mi := &file_post_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1662,7 +1542,7 @@ func (x *GetBoardsResponse) String() string {
 func (*GetBoardsResponse) ProtoMessage() {}
 
 func (x *GetBoardsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[30]
+	mi := &file_post_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1675,7 +1555,7 @@ func (x *GetBoardsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBoardsResponse.ProtoReflect.Descriptor instead.
 func (*GetBoardsResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{30}
+	return file_post_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *GetBoardsResponse) GetBoards() []*Board {
@@ -1694,7 +1574,7 @@ type SearchBoardsResponse struct {
 
 func (x *SearchBoardsResponse) Reset() {
 	*x = SearchBoardsResponse{}
-	mi := &file_post_proto_msgTypes[31]
+	mi := &file_post_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1706,7 +1586,7 @@ func (x *SearchBoardsResponse) String() string {
 func (*SearchBoardsResponse) ProtoMessage() {}
 
 func (x *SearchBoardsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[31]
+	mi := &file_post_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1719,7 +1599,7 @@ func (x *SearchBoardsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchBoardsResponse.ProtoReflect.Descriptor instead.
 func (*SearchBoardsResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{31}
+	return file_post_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *SearchBoardsResponse) GetBoards() []*Board {
@@ -1738,7 +1618,7 @@ type DeleteBoardResponse struct {
 
 func (x *DeleteBoardResponse) Reset() {
 	*x = DeleteBoardResponse{}
-	mi := &file_post_proto_msgTypes[32]
+	mi := &file_post_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1750,7 +1630,7 @@ func (x *DeleteBoardResponse) String() string {
 func (*DeleteBoardResponse) ProtoMessage() {}
 
 func (x *DeleteBoardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[32]
+	mi := &file_post_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1763,7 +1643,7 @@ func (x *DeleteBoardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteBoardResponse.ProtoReflect.Descriptor instead.
 func (*DeleteBoardResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{32}
+	return file_post_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *DeleteBoardResponse) GetMessage() string {
@@ -1784,7 +1664,7 @@ type CreateTagResponse struct {
 
 func (x *CreateTagResponse) Reset() {
 	*x = CreateTagResponse{}
-	mi := &file_post_proto_msgTypes[33]
+	mi := &file_post_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1796,7 +1676,7 @@ func (x *CreateTagResponse) String() string {
 func (*CreateTagResponse) ProtoMessage() {}
 
 func (x *CreateTagResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[33]
+	mi := &file_post_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1809,7 +1689,7 @@ func (x *CreateTagResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTagResponse.ProtoReflect.Descriptor instead.
 func (*CreateTagResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{33}
+	return file_post_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *CreateTagResponse) GetTagId() string {
@@ -1836,7 +1716,7 @@ type GetTagResponse struct {
 
 func (x *GetTagResponse) Reset() {
 	*x = GetTagResponse{}
-	mi := &file_post_proto_msgTypes[34]
+	mi := &file_post_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1848,7 +1728,7 @@ func (x *GetTagResponse) String() string {
 func (*GetTagResponse) ProtoMessage() {}
 
 func (x *GetTagResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[34]
+	mi := &file_post_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1861,7 +1741,7 @@ func (x *GetTagResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTagResponse.ProtoReflect.Descriptor instead.
 func (*GetTagResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{34}
+	return file_post_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *GetTagResponse) GetTagId() string {
@@ -1887,7 +1767,7 @@ type SearchTagsResponse struct {
 
 func (x *SearchTagsResponse) Reset() {
 	*x = SearchTagsResponse{}
-	mi := &file_post_proto_msgTypes[35]
+	mi := &file_post_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1899,7 +1779,7 @@ func (x *SearchTagsResponse) String() string {
 func (*SearchTagsResponse) ProtoMessage() {}
 
 func (x *SearchTagsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[35]
+	mi := &file_post_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1912,7 +1792,7 @@ func (x *SearchTagsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchTagsResponse.ProtoReflect.Descriptor instead.
 func (*SearchTagsResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{35}
+	return file_post_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *SearchTagsResponse) GetTags() []*Tag {
@@ -1931,7 +1811,7 @@ type PinPostToBoardResponse struct {
 
 func (x *PinPostToBoardResponse) Reset() {
 	*x = PinPostToBoardResponse{}
-	mi := &file_post_proto_msgTypes[36]
+	mi := &file_post_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1943,7 +1823,7 @@ func (x *PinPostToBoardResponse) String() string {
 func (*PinPostToBoardResponse) ProtoMessage() {}
 
 func (x *PinPostToBoardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[36]
+	mi := &file_post_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1956,7 +1836,7 @@ func (x *PinPostToBoardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PinPostToBoardResponse.ProtoReflect.Descriptor instead.
 func (*PinPostToBoardResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{36}
+	return file_post_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *PinPostToBoardResponse) GetMessage() string {
@@ -1975,7 +1855,7 @@ type UnpinPostFromBoardResponse struct {
 
 func (x *UnpinPostFromBoardResponse) Reset() {
 	*x = UnpinPostFromBoardResponse{}
-	mi := &file_post_proto_msgTypes[37]
+	mi := &file_post_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1987,7 +1867,7 @@ func (x *UnpinPostFromBoardResponse) String() string {
 func (*UnpinPostFromBoardResponse) ProtoMessage() {}
 
 func (x *UnpinPostFromBoardResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[37]
+	mi := &file_post_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2000,7 +1880,7 @@ func (x *UnpinPostFromBoardResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UnpinPostFromBoardResponse.ProtoReflect.Descriptor instead.
 func (*UnpinPostFromBoardResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{37}
+	return file_post_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *UnpinPostFromBoardResponse) GetMessage() string {
@@ -2019,7 +1899,7 @@ type AddTagToPostResponse struct {
 
 func (x *AddTagToPostResponse) Reset() {
 	*x = AddTagToPostResponse{}
-	mi := &file_post_proto_msgTypes[38]
+	mi := &file_post_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2031,7 +1911,7 @@ func (x *AddTagToPostResponse) String() string {
 func (*AddTagToPostResponse) ProtoMessage() {}
 
 func (x *AddTagToPostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[38]
+	mi := &file_post_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2044,7 +1924,7 @@ func (x *AddTagToPostResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddTagToPostResponse.ProtoReflect.Descriptor instead.
 func (*AddTagToPostResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{38}
+	return file_post_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *AddTagToPostResponse) GetMessage() string {
@@ -2063,7 +1943,7 @@ type RemoveTagFromPostResponse struct {
 
 func (x *RemoveTagFromPostResponse) Reset() {
 	*x = RemoveTagFromPostResponse{}
-	mi := &file_post_proto_msgTypes[39]
+	mi := &file_post_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2075,7 +1955,7 @@ func (x *RemoveTagFromPostResponse) String() string {
 func (*RemoveTagFromPostResponse) ProtoMessage() {}
 
 func (x *RemoveTagFromPostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[39]
+	mi := &file_post_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2088,7 +1968,7 @@ func (x *RemoveTagFromPostResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveTagFromPostResponse.ProtoReflect.Descriptor instead.
 func (*RemoveTagFromPostResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{39}
+	return file_post_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *RemoveTagFromPostResponse) GetMessage() string {
@@ -2098,28 +1978,29 @@ func (x *RemoveTagFromPostResponse) GetMessage() string {
 	return ""
 }
 
-type GetPostsByTagResponse struct {
+type Tag struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Posts         []*Post                `protobuf:"bytes,1,rep,name=posts,proto3" json:"posts,omitempty"`
+	TagId         string                 `protobuf:"bytes,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetPostsByTagResponse) Reset() {
-	*x = GetPostsByTagResponse{}
-	mi := &file_post_proto_msgTypes[40]
+func (x *Tag) Reset() {
+	*x = Tag{}
+	mi := &file_post_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetPostsByTagResponse) String() string {
+func (x *Tag) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetPostsByTagResponse) ProtoMessage() {}
+func (*Tag) ProtoMessage() {}
 
-func (x *GetPostsByTagResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[40]
+func (x *Tag) ProtoReflect() protoreflect.Message {
+	mi := &file_post_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2130,144 +2011,23 @@ func (x *GetPostsByTagResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetPostsByTagResponse.ProtoReflect.Descriptor instead.
-func (*GetPostsByTagResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{40}
+// Deprecated: Use Tag.ProtoReflect.Descriptor instead.
+func (*Tag) Descriptor() ([]byte, []int) {
+	return file_post_proto_rawDescGZIP(), []int{38}
 }
 
-func (x *GetPostsByTagResponse) GetPosts() []*Post {
+func (x *Tag) GetTagId() string {
 	if x != nil {
-		return x.Posts
-	}
-	return nil
-}
-
-type GetBoardsByPostResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Boards        []*Board               `protobuf:"bytes,1,rep,name=boards,proto3" json:"boards,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetBoardsByPostResponse) Reset() {
-	*x = GetBoardsByPostResponse{}
-	mi := &file_post_proto_msgTypes[41]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetBoardsByPostResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetBoardsByPostResponse) ProtoMessage() {}
-
-func (x *GetBoardsByPostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[41]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetBoardsByPostResponse.ProtoReflect.Descriptor instead.
-func (*GetBoardsByPostResponse) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{41}
-}
-
-func (x *GetBoardsByPostResponse) GetBoards() []*Board {
-	if x != nil {
-		return x.Boards
-	}
-	return nil
-}
-
-type Post struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PostId        string                 `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Title         string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
-	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	Link          string                 `protobuf:"bytes,5,opt,name=link,proto3" json:"link,omitempty"`
-	TagIds        []string               `protobuf:"bytes,6,rep,name=tag_ids,json=tagIds,proto3" json:"tag_ids,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Post) Reset() {
-	*x = Post{}
-	mi := &file_post_proto_msgTypes[42]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Post) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Post) ProtoMessage() {}
-
-func (x *Post) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[42]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Post.ProtoReflect.Descriptor instead.
-func (*Post) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{42}
-}
-
-func (x *Post) GetPostId() string {
-	if x != nil {
-		return x.PostId
+		return x.TagId
 	}
 	return ""
 }
 
-func (x *Post) GetUserId() string {
+func (x *Tag) GetName() string {
 	if x != nil {
-		return x.UserId
+		return x.Name
 	}
 	return ""
-}
-
-func (x *Post) GetTitle() string {
-	if x != nil {
-		return x.Title
-	}
-	return ""
-}
-
-func (x *Post) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-func (x *Post) GetLink() string {
-	if x != nil {
-		return x.Link
-	}
-	return ""
-}
-
-func (x *Post) GetTagIds() []string {
-	if x != nil {
-		return x.TagIds
-	}
-	return nil
 }
 
 type Board struct {
@@ -2276,14 +2036,14 @@ type Board struct {
 	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
 	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	PostIds       []string               `protobuf:"bytes,5,rep,name=post_ids,json=postIds,proto3" json:"post_ids,omitempty"`
+	Posts         []*Post                `protobuf:"bytes,5,rep,name=posts,proto3" json:"posts,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Board) Reset() {
 	*x = Board{}
-	mi := &file_post_proto_msgTypes[43]
+	mi := &file_post_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2295,7 +2055,7 @@ func (x *Board) String() string {
 func (*Board) ProtoMessage() {}
 
 func (x *Board) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[43]
+	mi := &file_post_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2308,7 +2068,7 @@ func (x *Board) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Board.ProtoReflect.Descriptor instead.
 func (*Board) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{43}
+	return file_post_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *Board) GetBoardId() string {
@@ -2339,36 +2099,40 @@ func (x *Board) GetDescription() string {
 	return ""
 }
 
-func (x *Board) GetPostIds() []string {
+func (x *Board) GetPosts() []*Post {
 	if x != nil {
-		return x.PostIds
+		return x.Posts
 	}
 	return nil
 }
 
-type Tag struct {
+type Post struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	TagId         string                 `protobuf:"bytes,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	PostId        string                 `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Title         string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Extension     string                 `protobuf:"bytes,5,opt,name=extension,proto3" json:"extension,omitempty"`
+	Tags          []*Tag                 `protobuf:"bytes,6,rep,name=tags,proto3" json:"tags,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Tag) Reset() {
-	*x = Tag{}
-	mi := &file_post_proto_msgTypes[44]
+func (x *Post) Reset() {
+	*x = Post{}
+	mi := &file_post_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Tag) String() string {
+func (x *Post) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Tag) ProtoMessage() {}
+func (*Post) ProtoMessage() {}
 
-func (x *Tag) ProtoReflect() protoreflect.Message {
-	mi := &file_post_proto_msgTypes[44]
+func (x *Post) ProtoReflect() protoreflect.Message {
+	mi := &file_post_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2379,23 +2143,51 @@ func (x *Tag) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Tag.ProtoReflect.Descriptor instead.
-func (*Tag) Descriptor() ([]byte, []int) {
-	return file_post_proto_rawDescGZIP(), []int{44}
+// Deprecated: Use Post.ProtoReflect.Descriptor instead.
+func (*Post) Descriptor() ([]byte, []int) {
+	return file_post_proto_rawDescGZIP(), []int{40}
 }
 
-func (x *Tag) GetTagId() string {
+func (x *Post) GetPostId() string {
 	if x != nil {
-		return x.TagId
+		return x.PostId
 	}
 	return ""
 }
 
-func (x *Tag) GetName() string {
+func (x *Post) GetUserId() string {
 	if x != nil {
-		return x.Name
+		return x.UserId
 	}
 	return ""
+}
+
+func (x *Post) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Post) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Post) GetExtension() string {
+	if x != nil {
+		return x.Extension
+	}
+	return ""
+}
+
+func (x *Post) GetTags() []*Tag {
+	if x != nil {
+		return x.Tags
+	}
+	return nil
 }
 
 var File_post_proto protoreflect.FileDescriptor
@@ -2472,15 +2264,7 @@ const file_post_proto_rawDesc = "" +
 	"\x18RemoveTagFromPostRequest\x12\x17\n" +
 	"\apost_id\x18\x01 \x01(\tR\x06postId\x12\x15\n" +
 	"\x06tag_id\x18\x02 \x01(\tR\x05tagId\x12\x17\n" +
-	"\auser_id\x18\x03 \x01(\tR\x06userId\"[\n" +
-	"\x14GetPostsByTagRequest\x12\x15\n" +
-	"\x06tag_id\x18\x01 \x01(\tR\x05tagId\x12\x14\n" +
-	"\x05limit\x18\x02 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x03 \x01(\x05R\x06offset\"_\n" +
-	"\x16GetBoardsByPostRequest\x12\x17\n" +
-	"\apost_id\x18\x01 \x01(\tR\x06postId\x12\x14\n" +
-	"\x05limit\x18\x02 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x03 \x01(\x05R\x06offset\"G\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\"G\n" +
 	"\x12CreatePostResponse\x12\x17\n" +
 	"\apost_id\x18\x01 \x01(\tR\x06postId\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\".\n" +
@@ -2525,28 +2309,24 @@ const file_post_proto_rawDesc = "" +
 	"\x14AddTagToPostResponse\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"5\n" +
 	"\x19RemoveTagFromPostResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"9\n" +
-	"\x15GetPostsByTagResponse\x12 \n" +
-	"\x05posts\x18\x01 \x03(\v2\n" +
-	".post.PostR\x05posts\">\n" +
-	"\x17GetBoardsByPostResponse\x12#\n" +
-	"\x06boards\x18\x01 \x03(\v2\v.post.BoardR\x06boards\"\x9d\x01\n" +
-	"\x04Post\x12\x17\n" +
-	"\apost_id\x18\x01 \x01(\tR\x06postId\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x14\n" +
-	"\x05title\x18\x03 \x01(\tR\x05title\x12 \n" +
-	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x12\n" +
-	"\x04link\x18\x05 \x01(\tR\x04link\x12\x17\n" +
-	"\atag_ids\x18\x06 \x03(\tR\x06tagIds\"\x8c\x01\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"0\n" +
+	"\x03Tag\x12\x15\n" +
+	"\x06tag_id\x18\x01 \x01(\tR\x05tagId\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"\x93\x01\n" +
 	"\x05Board\x12\x19\n" +
 	"\bboard_id\x18\x01 \x01(\tR\aboardId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x12\n" +
 	"\x04name\x18\x03 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x19\n" +
-	"\bpost_ids\x18\x05 \x03(\tR\apostIds\"0\n" +
-	"\x03Tag\x12\x15\n" +
-	"\x06tag_id\x18\x01 \x01(\tR\x05tagId\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name2\x8a\n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12 \n" +
+	"\x05posts\x18\x05 \x03(\v2\n" +
+	".post.PostR\x05posts\"\xad\x01\n" +
+	"\x04Post\x12\x17\n" +
+	"\apost_id\x18\x01 \x01(\tR\x06postId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x14\n" +
+	"\x05title\x18\x03 \x01(\tR\x05title\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x1c\n" +
+	"\textension\x18\x05 \x01(\tR\textension\x12\x1d\n" +
+	"\x04tags\x18\x06 \x03(\v2\t.post.TagR\x04tags2\x8a\n" +
 	"\n" +
 	"\vPostService\x12?\n" +
 	"\n" +
@@ -2585,7 +2365,7 @@ func file_post_proto_rawDescGZIP() []byte {
 	return file_post_proto_rawDescData
 }
 
-var file_post_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
+var file_post_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
 var file_post_proto_goTypes = []any{
 	(*CreatePostRequest)(nil),          // 0: post.CreatePostRequest
 	(*UpdatePostRequest)(nil),          // 1: post.UpdatePostRequest
@@ -2606,43 +2386,39 @@ var file_post_proto_goTypes = []any{
 	(*UnpinPostFromBoardRequest)(nil),  // 16: post.UnpinPostFromBoardRequest
 	(*AddTagToPostRequest)(nil),        // 17: post.AddTagToPostRequest
 	(*RemoveTagFromPostRequest)(nil),   // 18: post.RemoveTagFromPostRequest
-	(*GetPostsByTagRequest)(nil),       // 19: post.GetPostsByTagRequest
-	(*GetBoardsByPostRequest)(nil),     // 20: post.GetBoardsByPostRequest
-	(*CreatePostResponse)(nil),         // 21: post.CreatePostResponse
-	(*UpdatePostResponse)(nil),         // 22: post.UpdatePostResponse
-	(*GetPostResponse)(nil),            // 23: post.GetPostResponse
-	(*GetPostsResponse)(nil),           // 24: post.GetPostsResponse
-	(*SearchPostsResponse)(nil),        // 25: post.SearchPostsResponse
-	(*DeletePostResponse)(nil),         // 26: post.DeletePostResponse
-	(*CreateBoardResponse)(nil),        // 27: post.CreateBoardResponse
-	(*UpdateBoardResponse)(nil),        // 28: post.UpdateBoardResponse
-	(*GetBoardResponse)(nil),           // 29: post.GetBoardResponse
-	(*GetBoardsResponse)(nil),          // 30: post.GetBoardsResponse
-	(*SearchBoardsResponse)(nil),       // 31: post.SearchBoardsResponse
-	(*DeleteBoardResponse)(nil),        // 32: post.DeleteBoardResponse
-	(*CreateTagResponse)(nil),          // 33: post.CreateTagResponse
-	(*GetTagResponse)(nil),             // 34: post.GetTagResponse
-	(*SearchTagsResponse)(nil),         // 35: post.SearchTagsResponse
-	(*PinPostToBoardResponse)(nil),     // 36: post.PinPostToBoardResponse
-	(*UnpinPostFromBoardResponse)(nil), // 37: post.UnpinPostFromBoardResponse
-	(*AddTagToPostResponse)(nil),       // 38: post.AddTagToPostResponse
-	(*RemoveTagFromPostResponse)(nil),  // 39: post.RemoveTagFromPostResponse
-	(*GetPostsByTagResponse)(nil),      // 40: post.GetPostsByTagResponse
-	(*GetBoardsByPostResponse)(nil),    // 41: post.GetBoardsByPostResponse
-	(*Post)(nil),                       // 42: post.Post
-	(*Board)(nil),                      // 43: post.Board
-	(*Tag)(nil),                        // 44: post.Tag
+	(*CreatePostResponse)(nil),         // 19: post.CreatePostResponse
+	(*UpdatePostResponse)(nil),         // 20: post.UpdatePostResponse
+	(*GetPostResponse)(nil),            // 21: post.GetPostResponse
+	(*GetPostsResponse)(nil),           // 22: post.GetPostsResponse
+	(*SearchPostsResponse)(nil),        // 23: post.SearchPostsResponse
+	(*DeletePostResponse)(nil),         // 24: post.DeletePostResponse
+	(*CreateBoardResponse)(nil),        // 25: post.CreateBoardResponse
+	(*UpdateBoardResponse)(nil),        // 26: post.UpdateBoardResponse
+	(*GetBoardResponse)(nil),           // 27: post.GetBoardResponse
+	(*GetBoardsResponse)(nil),          // 28: post.GetBoardsResponse
+	(*SearchBoardsResponse)(nil),       // 29: post.SearchBoardsResponse
+	(*DeleteBoardResponse)(nil),        // 30: post.DeleteBoardResponse
+	(*CreateTagResponse)(nil),          // 31: post.CreateTagResponse
+	(*GetTagResponse)(nil),             // 32: post.GetTagResponse
+	(*SearchTagsResponse)(nil),         // 33: post.SearchTagsResponse
+	(*PinPostToBoardResponse)(nil),     // 34: post.PinPostToBoardResponse
+	(*UnpinPostFromBoardResponse)(nil), // 35: post.UnpinPostFromBoardResponse
+	(*AddTagToPostResponse)(nil),       // 36: post.AddTagToPostResponse
+	(*RemoveTagFromPostResponse)(nil),  // 37: post.RemoveTagFromPostResponse
+	(*Tag)(nil),                        // 38: post.Tag
+	(*Board)(nil),                      // 39: post.Board
+	(*Post)(nil),                       // 40: post.Post
 }
 var file_post_proto_depIdxs = []int32{
-	42, // 0: post.GetPostResponse.post:type_name -> post.Post
-	42, // 1: post.GetPostsResponse.posts:type_name -> post.Post
-	42, // 2: post.SearchPostsResponse.posts:type_name -> post.Post
-	43, // 3: post.GetBoardResponse.board:type_name -> post.Board
-	43, // 4: post.GetBoardsResponse.boards:type_name -> post.Board
-	43, // 5: post.SearchBoardsResponse.boards:type_name -> post.Board
-	44, // 6: post.SearchTagsResponse.tags:type_name -> post.Tag
-	42, // 7: post.GetPostsByTagResponse.posts:type_name -> post.Post
-	43, // 8: post.GetBoardsByPostResponse.boards:type_name -> post.Board
+	40, // 0: post.GetPostResponse.post:type_name -> post.Post
+	40, // 1: post.GetPostsResponse.posts:type_name -> post.Post
+	40, // 2: post.SearchPostsResponse.posts:type_name -> post.Post
+	39, // 3: post.GetBoardResponse.board:type_name -> post.Board
+	39, // 4: post.GetBoardsResponse.boards:type_name -> post.Board
+	39, // 5: post.SearchBoardsResponse.boards:type_name -> post.Board
+	38, // 6: post.SearchTagsResponse.tags:type_name -> post.Tag
+	40, // 7: post.Board.posts:type_name -> post.Post
+	38, // 8: post.Post.tags:type_name -> post.Tag
 	0,  // 9: post.PostService.CreatePost:input_type -> post.CreatePostRequest
 	1,  // 10: post.PostService.UpdatePost:input_type -> post.UpdatePostRequest
 	2,  // 11: post.PostService.GetPost:input_type -> post.GetPostRequest
@@ -2662,25 +2438,25 @@ var file_post_proto_depIdxs = []int32{
 	16, // 25: post.PostService.UnpinPostFromBoard:input_type -> post.UnpinPostFromBoardRequest
 	17, // 26: post.PostService.AddTagToPost:input_type -> post.AddTagToPostRequest
 	18, // 27: post.PostService.RemoveTagFromPost:input_type -> post.RemoveTagFromPostRequest
-	21, // 28: post.PostService.CreatePost:output_type -> post.CreatePostResponse
-	22, // 29: post.PostService.UpdatePost:output_type -> post.UpdatePostResponse
-	23, // 30: post.PostService.GetPost:output_type -> post.GetPostResponse
-	24, // 31: post.PostService.GetPosts:output_type -> post.GetPostsResponse
-	25, // 32: post.PostService.SearchPosts:output_type -> post.SearchPostsResponse
-	26, // 33: post.PostService.DeletePost:output_type -> post.DeletePostResponse
-	27, // 34: post.PostService.CreateBoard:output_type -> post.CreateBoardResponse
-	28, // 35: post.PostService.UpdateBoard:output_type -> post.UpdateBoardResponse
-	29, // 36: post.PostService.GetBoard:output_type -> post.GetBoardResponse
-	30, // 37: post.PostService.GetBoards:output_type -> post.GetBoardsResponse
-	31, // 38: post.PostService.SearchBoards:output_type -> post.SearchBoardsResponse
-	32, // 39: post.PostService.DeleteBoard:output_type -> post.DeleteBoardResponse
-	33, // 40: post.PostService.CreateTag:output_type -> post.CreateTagResponse
-	34, // 41: post.PostService.GetTag:output_type -> post.GetTagResponse
-	35, // 42: post.PostService.SearchTags:output_type -> post.SearchTagsResponse
-	36, // 43: post.PostService.PinPostToBoard:output_type -> post.PinPostToBoardResponse
-	37, // 44: post.PostService.UnpinPostFromBoard:output_type -> post.UnpinPostFromBoardResponse
-	38, // 45: post.PostService.AddTagToPost:output_type -> post.AddTagToPostResponse
-	39, // 46: post.PostService.RemoveTagFromPost:output_type -> post.RemoveTagFromPostResponse
+	19, // 28: post.PostService.CreatePost:output_type -> post.CreatePostResponse
+	20, // 29: post.PostService.UpdatePost:output_type -> post.UpdatePostResponse
+	21, // 30: post.PostService.GetPost:output_type -> post.GetPostResponse
+	22, // 31: post.PostService.GetPosts:output_type -> post.GetPostsResponse
+	23, // 32: post.PostService.SearchPosts:output_type -> post.SearchPostsResponse
+	24, // 33: post.PostService.DeletePost:output_type -> post.DeletePostResponse
+	25, // 34: post.PostService.CreateBoard:output_type -> post.CreateBoardResponse
+	26, // 35: post.PostService.UpdateBoard:output_type -> post.UpdateBoardResponse
+	27, // 36: post.PostService.GetBoard:output_type -> post.GetBoardResponse
+	28, // 37: post.PostService.GetBoards:output_type -> post.GetBoardsResponse
+	29, // 38: post.PostService.SearchBoards:output_type -> post.SearchBoardsResponse
+	30, // 39: post.PostService.DeleteBoard:output_type -> post.DeleteBoardResponse
+	31, // 40: post.PostService.CreateTag:output_type -> post.CreateTagResponse
+	32, // 41: post.PostService.GetTag:output_type -> post.GetTagResponse
+	33, // 42: post.PostService.SearchTags:output_type -> post.SearchTagsResponse
+	34, // 43: post.PostService.PinPostToBoard:output_type -> post.PinPostToBoardResponse
+	35, // 44: post.PostService.UnpinPostFromBoard:output_type -> post.UnpinPostFromBoardResponse
+	36, // 45: post.PostService.AddTagToPost:output_type -> post.AddTagToPostResponse
+	37, // 46: post.PostService.RemoveTagFromPost:output_type -> post.RemoveTagFromPostResponse
 	28, // [28:47] is the sub-list for method output_type
 	9,  // [9:28] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
@@ -2699,7 +2475,7 @@ func file_post_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_post_proto_rawDesc), len(file_post_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   45,
+			NumMessages:   41,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

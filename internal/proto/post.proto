@@ -241,13 +241,9 @@ message RemoveTagFromPostResponse {
 }
 // ------------- Types -------------
 
-message Post {
-  string post_id = 1;
-  string user_id = 2;
-  string title = 3;
-  string description = 4;
-  string link = 5;
-  repeated string tag_ids = 6;
+message Tag {
+  string tag_id = 1;
+  string name = 2;
 }
 
 message Board {
@@ -255,10 +251,14 @@ message Board {
   string user_id = 2;
   string name = 3;
   string description = 4;
-  repeated string post_ids = 5;
+  repeated Post posts = 5;
 }
 
-message Tag {
-  string tag_id = 1;
-  string name = 2;
+message Post {
+  string post_id = 1;
+  string user_id = 2;
+  string title = 3;
+  string description = 4;
+  string extension = 5;
+  repeated Tag tags = 6;
 }
