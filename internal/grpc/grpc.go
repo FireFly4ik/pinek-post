@@ -61,14 +61,25 @@ func (p *PostServiceServer) GetPost(ctx context.Context, req *pb.GetPostRequest)
 		return nil, err
 	}
 
+	tags := make([]*pb.Tag, len(tagsIds))
+	for i, tagId := range tagsIds {
+		tags[i] = &pb.Tag{TagId: tagId[0], Name: tagId[1]}
+	}
+
+	resp := &pb.Post{
+		PostId:    postId,
+		UserId:    userId,
+		Title:     title,
+		Extension: extension,
+		Tags:      tags,
+	}
+
+	if description != nil {
+		resp.Description = *description
+	}
+
 	return &pb.GetPostResponse{
-		Post: &pb.Post{
-			PostId:      postId + "." + extension,
-			UserId:      userId,
-			Title:       title,
-			Description: *description,
-			TagIds:      tagsIds,
-		},
+		Post: resp,
 	}, nil
 }
 
@@ -80,12 +91,21 @@ func (p *PostServiceServer) GetPosts(ctx context.Context, req *pb.GetPostsReques
 
 	posts := make([]*pb.Post, len(postIds))
 	for i := range postIds {
+		tags := make([]*pb.Tag, len(tagsIds[i]))
+		for j, tagId := range tagsIds[i] {
+			tags[j] = &pb.Tag{TagId: tagId[0], Name: tagId[1]}
+		}
+
 		posts[i] = &pb.Post{
-			PostId:      postIds[i] + "." + extensions[i],
-			UserId:      userIds[i],
-			Title:       titles[i],
-			Description: *descriptions[i],
-			TagIds:      tagsIds[i],
+			PostId:    postIds[i],
+			UserId:    userIds[i],
+			Title:     titles[i],
+			Extension: extensions[i],
+			Tags:      tags,
+		}
+
+		if descriptions[i] != nil {
+			posts[i].Description = *descriptions[i]
 		}
 	}
 
@@ -109,19 +129,31 @@ func (p *PostServiceServer) SearchPosts(ctx context.Context, req *pb.SearchPosts
 		query = &req.Query
 	}
 
-	postIds, userIdsRes, titles, descriptions, extensions, tagsIds, err := p.database.SearchPosts(query, tagIds, userIds, int(req.Limit), int(req.Offset))
+	postIds, userIdsRes, titles, descriptions, extensions, tagsIds, err := p.database.SearchPosts(query, userIds, tagIds, int(req.Limit), int(req.Offset))
 	if err != nil {
 		return nil, err
 	}
 
 	posts := make([]*pb.Post, len(postIds))
 	for i := range postIds {
+		tags := make([]*pb.Tag, len(tagIds))
+		for j, tagId := range tagsIds[i] {
+			if len(tagId) == 0 {
+				continue
+			}
+			tags[j] = &pb.Tag{TagId: tagId[0], Name: tagId[1]}
+		}
+
 		posts[i] = &pb.Post{
-			PostId:      postIds[i] + "." + extensions[i],
-			UserId:      userIdsRes[i],
-			Title:       titles[i],
-			Description: *descriptions[i],
-			TagIds:      tagsIds[i],
+			PostId:    postIds[i],
+			UserId:    userIdsRes[i],
+			Title:     titles[i],
+			Extension: extensions[i],
+			Tags:      tags,
+		}
+
+		if descriptions[i] != nil {
+			posts[i].Description = *descriptions[i]
 		}
 	}
 
@@ -182,14 +214,24 @@ func (p *PostServiceServer) GetBoard(ctx context.Context, req *pb.GetBoardReques
 		return nil, err
 	}
 
+	posts := make([]*pb.Post, len(pinnedPostIds))
+	for i, postId := range pinnedPostIds {
+		posts[i] = &pb.Post{PostId: postId[0], UserId: postId[1], Title: postId[2], Description: postId[3], Extension: postId[4]}
+	}
+
+	resp := &pb.Board{
+		BoardId: boardId,
+		UserId:  userId,
+		Name:    name,
+		Posts:   posts,
+	}
+
+	if description != nil {
+		resp.Description = *description
+	}
+
 	return &pb.GetBoardResponse{
-		Board: &pb.Board{
-			BoardId:     boardId,
-			UserId:      userId,
-			Name:        name,
-			Description: *description,
-			PostIds:     pinnedPostIds,
-		},
+		Board: resp,
 	}, nil
 }
 
@@ -201,12 +243,20 @@ func (p *PostServiceServer) GetBoards(ctx context.Context, req *pb.GetBoardsRequ
 
 	boards := make([]*pb.Board, len(boardIds))
 	for i := range boardIds {
+		post := make([]*pb.Post, len(pinnedPostIds[i]))
+		for j, postId := range pinnedPostIds[i] {
+			post[j] = &pb.Post{PostId: postId[0], UserId: postId[1], Title: postId[2], Description: postId[3], Extension: postId[4]}
+		}
+
 		boards[i] = &pb.Board{
-			BoardId:     boardIds[i],
-			UserId:      userIds[i],
-			Name:        names[i],
-			Description: *descriptions[i],
-			PostIds:     pinnedPostIds[i],
+			BoardId: boardIds[i],
+			UserId:  userIds[i],
+			Name:    names[i],
+			Posts:   post,
+		}
+
+		if descriptions[i] != nil {
+			boards[i].Description = *descriptions[i]
 		}
 	}
 	return &pb.GetBoardsResponse{
@@ -232,12 +282,20 @@ func (p *PostServiceServer) SearchBoards(ctx context.Context, req *pb.SearchBoar
 
 	boards := make([]*pb.Board, len(boardIds))
 	for i := range boardIds {
+		post := make([]*pb.Post, len(pinnedPostIds[i]))
+		for j, postId := range pinnedPostIds[i] {
+			post[j] = &pb.Post{PostId: postId[0], UserId: postId[1], Title: postId[2], Description: postId[3], Extension: postId[4]}
+		}
+
 		boards[i] = &pb.Board{
-			BoardId:     boardIds[i],
-			UserId:      userIdsRes[i],
-			Name:        names[i],
-			Description: *descriptions[i],
-			PostIds:     pinnedPostIds[i],
+			BoardId: boardIds[i],
+			UserId:  userIdsRes[i],
+			Name:    names[i],
+			Posts:   post,
+		}
+
+		if descriptions[i] != nil {
+			boards[i].Description = *descriptions[i]
 		}
 	}
 

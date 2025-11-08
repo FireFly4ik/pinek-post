@@ -92,7 +92,7 @@ func (d *PostDatabase) UpdatePost(postId, userId string, title, description *str
 	return nil
 }
 
-func (d *PostDatabase) GetPost(postId string) (string, string, string, *string, string, []string, error) {
+func (d *PostDatabase) GetPost(postId string) (string, string, string, *string, string, [][]string, error) {
 	postIdParsed, err := uuid.Parse(postId)
 	if err != nil {
 		return "", "", "", nil, "", nil, ErrCannotParseUUID
@@ -104,48 +104,42 @@ func (d *PostDatabase) GetPost(postId string) (string, string, string, *string, 
 	}
 
 	tags := []Tag{}
-	if err := d.Database.Where("post_id = ?", postIdParsed).Find(&tags).Error; err != nil {
+	if err := d.Database.Model(PostTag{}).Joins("JOIN tags ON post_tags.tag_id = tags.id").Where("post_tags.post_id = ?", postIdParsed).Find(&tags).Error; err != nil {
 		return "", "", "", nil, "", nil, err
 	}
 
-	tagsStrings := make([]string, len(tags))
+	tagsStrings := make([][]string, len(tags))
 	for i, tag := range tags {
-		tagsStrings[i] = tag.ID.String()
+		tagsStrings[i] = []string{tag.ID.String(), tag.Name}
 	}
 
 	return post.ID.String(), post.UserID.String(), post.Title, post.Description, post.Extension, tagsStrings, nil
 }
 
-func (d *PostDatabase) GetPosts(postIds []string) ([]string, []string, []string, []*string, []string, [][]string, error) {
+func (d *PostDatabase) GetPosts(postIds []string) ([]string, []string, []string, []*string, []string, [][][]string, error) {
+	postIdsResp := make([]string, len(postIds))
 	userIds := make([]string, len(postIds))
 	titles := make([]string, len(postIds))
 	descriptions := make([]*string, len(postIds))
 	extensions := make([]string, len(postIds))
-	tags := make([][]string, len(postIds))
+	tags := make([][][]string, len(postIds))
 
 	for i := range postIds {
 		postId, userId, title, description, extension, tag, err := d.GetPost(postIds[i])
-		if err != nil {
-			postIds = append(postIds, "")
-			userIds = append(userIds, "")
-			titles = append(titles, "")
-			descriptions = append(descriptions, nil)
-			extensions = append(extensions, "")
-			tags = append(tags, nil)
-		} else {
-			postIds = append(postIds, postId)
-			userIds = append(userIds, userId)
-			titles = append(titles, title)
-			descriptions = append(descriptions, description)
-			extensions = append(extensions, extension)
-			tags = append(tags, tag)
+		if err == nil {
+			postIdsResp[i] = postId
+			userIds[i] = userId
+			titles[i] = title
+			descriptions[i] = description
+			extensions[i] = extension
+			tags[i] = tag
 		}
 	}
 
 	return postIds, userIds, titles, descriptions, extensions, tags, nil
 }
 
-func (d *PostDatabase) SearchPosts(query *string, userIdsSearch, tagIdsSearch []string, limit, offset int) ([]string, []string, []string, []*string, []string, [][]string, error) {
+func (d *PostDatabase) SearchPosts(query *string, userIdsSearch, tagIdsSearch []string, limit, offset int) ([]string, []string, []string, []*string, []string, [][][]string, error) {
 	dbQuery := d.Database.Model(&Post{})
 
 	if query != nil {
@@ -188,7 +182,7 @@ func (d *PostDatabase) SearchPosts(query *string, userIdsSearch, tagIdsSearch []
 	titles := make([]string, len(posts))
 	descriptions := make([]*string, len(posts))
 	extensions := make([]string, len(posts))
-	tags := make([][]string, len(posts))
+	tags := make([][][]string, len(posts))
 
 	for i, post := range posts {
 		postIds[i] = post.ID.String()
@@ -196,18 +190,23 @@ func (d *PostDatabase) SearchPosts(query *string, userIdsSearch, tagIdsSearch []
 		titles[i] = post.Title
 		descriptions[i] = post.Description
 		extensions[i] = post.Extension
+		tags[i] = [][]string{}
 
 		tagModels := []Tag{}
-		if err := d.Database.Where("post_id = ?", post.ID).Find(&tagModels).Error; err != nil {
+		if err := d.Database.Model(PostTag{}).Joins("JOIN tags ON post_tags.tag_id = tags.id").Where("post_tags.post_id = ?", post.ID.String()).Find(&tagModels).Error; err != nil {
 			return nil, nil, nil, nil, nil, nil, err
 		}
 
-		tagStrings := make([]string, len(tagModels))
-		for j, tag := range tagModels {
-			tagStrings[j] = tag.ID.String()
+		if len(tagModels) == 0 {
+			continue
 		}
 
-		tags[i] = tagStrings
+		tagsOfPost := make([][]string, len(tagModels))
+		for j, tag := range tagModels {
+			tagsOfPost[j] = []string{tag.ID.String(), tag.Name}
+		}
+
+		tags[i] = tagsOfPost
 	}
 
 	return postIds, userIds, titles, descriptions, extensions, tags, nil
@@ -307,7 +306,7 @@ func (d *PostDatabase) UpdateBoard(boardId, userId string, name, description *st
 	return nil
 }
 
-func (d *PostDatabase) GetBoard(boardId string) (string, string, string, *string, []string, error) {
+func (d *PostDatabase) GetBoard(boardId string) (string, string, string, *string, [][]string, error) {
 	boardIdParsed, err := uuid.Parse(boardId)
 	if err != nil {
 		return "", "", "", nil, nil, ErrCannotParseUUID
@@ -323,41 +322,35 @@ func (d *PostDatabase) GetBoard(boardId string) (string, string, string, *string
 		return "", "", "", nil, nil, err
 	}
 
-	postIds := make([]string, len(posts))
+	postIds := make([][]string, len(posts))
 	for i, post := range posts {
-		postIds[i] = post.ID.String()
+		postIds[i] = []string{post.ID.String(), post.UserID.String(), post.Title, *post.Description, post.Extension}
 	}
 
 	return board.ID.String(), board.UserID.String(), board.Name, board.Description, postIds, nil
 }
 
-func (d *PostDatabase) GetBoards(boardIds []string) ([]string, []string, []string, []*string, [][]string, error) {
+func (d *PostDatabase) GetBoards(boardIds []string) ([]string, []string, []string, []*string, [][][]string, error) {
 	userIds := make([]string, len(boardIds))
 	names := make([]string, len(boardIds))
 	descriptions := make([]*string, len(boardIds))
-	postsIds := make([][]string, len(boardIds))
+	postsIds := make([][][]string, len(boardIds))
 
 	for i := range boardIds {
 		boardId, userId, name, description, postIds, err := d.GetBoard(boardIds[i])
-		if err != nil {
-			boardIds = append(boardIds, "")
-			userIds = append(userIds, "")
-			names = append(names, "")
-			descriptions = append(descriptions, nil)
-			postsIds = append(postsIds, nil)
-		} else {
-			boardIds = append(boardIds, boardId)
-			userIds = append(userIds, userId)
-			names = append(names, name)
-			descriptions = append(descriptions, description)
-			postsIds = append(postsIds, postIds)
+		if err == nil {
+			boardIds[i] = boardId
+			userIds[i] = userId
+			names[i] = name
+			descriptions[i] = description
+			postsIds[i] = postIds
 		}
 	}
 
 	return boardIds, userIds, names, descriptions, postsIds, nil
 }
 
-func (d *PostDatabase) SearchBoards(query *string, userId []string, limit, offset int) ([]string, []string, []string, []*string, [][]string, error) {
+func (d *PostDatabase) SearchBoards(query *string, userId []string, limit, offset int) ([]string, []string, []string, []*string, [][][]string, error) {
 	dbQuery := d.Database.Model(&Board{}).Joins("LEFT JOIN board_posts ON boards.id = board_posts.board_id")
 
 	if query != nil {
@@ -386,7 +379,7 @@ func (d *PostDatabase) SearchBoards(query *string, userId []string, limit, offse
 	userIds := make([]string, len(boards))
 	names := make([]string, len(boards))
 	descriptions := make([]*string, len(boards))
-	postsIds := make([][]string, len(boards))
+	postsIds := make([][][]string, len(boards))
 
 	for i, board := range boards {
 		boardIds[i] = board.ID.String()
@@ -398,12 +391,12 @@ func (d *PostDatabase) SearchBoards(query *string, userId []string, limit, offse
 			return nil, nil, nil, nil, nil, err
 		}
 
-		postStrings := make([]string, len(postModels))
-		for j, post := range postModels {
-			postStrings[j] = post.ID.String()
+		postIds := make([][]string, len(postModels))
+		for i, post := range postModels {
+			postIds[i] = []string{post.ID.String(), post.UserID.String(), post.Title, *post.Description, post.Extension}
 		}
 
-		postsIds[i] = postStrings
+		postsIds[i] = postIds
 	}
 
 	return boardIds, userIds, names, descriptions, postsIds, nil
