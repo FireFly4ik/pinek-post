@@ -104,7 +104,7 @@ func (d *PostDatabase) GetPost(postId string) (string, string, string, *string, 
 	}
 
 	tags := []Tag{}
-	if err := d.Database.Model(PostTag{}).Joins("JOIN tags ON post_tags.tag_id = tags.id").Where("post_tags.post_id = ?", postIdParsed).Find(&tags).Error; err != nil {
+	if err := d.Database.Model(Tag{}).Joins("JOIN post_tags ON post_tags.tag_id = tags.id").Where("post_tags.post_id = ?", postIdParsed).Find(&tags).Error; err != nil {
 		return "", "", "", nil, "", nil, err
 	}
 
@@ -193,7 +193,7 @@ func (d *PostDatabase) SearchPosts(query *string, userIdsSearch, tagIdsSearch []
 		tags[i] = [][]string{}
 
 		tagModels := []Tag{}
-		if err := d.Database.Model(PostTag{}).Joins("JOIN tags ON post_tags.tag_id = tags.id").Where("post_tags.post_id = ?", post.ID.String()).Find(&tagModels).Error; err != nil {
+		if err := d.Database.Model(Tag{}).Joins("JOIN post_tags ON post_tags.tag_id = tags.id").Where("post_tags.post_id = ?", post.ID).Find(&tagModels).Error; err != nil {
 			return nil, nil, nil, nil, nil, nil, err
 		}
 
@@ -318,7 +318,7 @@ func (d *PostDatabase) GetBoard(boardId string) (string, string, string, *string
 	}
 
 	posts := []Post{}
-	if err := d.Database.Model(BoardPost{}).Joins("JOIN posts ON posts.id = board_posts.post_id").Where("board_posts.board_id = ?", boardIdParsed).Find(&posts).Error; err != nil {
+	if err := d.Database.Model(Post{}).Joins("JOIN board_posts ON posts.id = board_posts.post_id").Where("board_posts.board_id = ?", boardIdParsed).Find(&posts).Error; err != nil {
 		return "", "", "", nil, nil, err
 	}
 
@@ -400,7 +400,7 @@ func (d *PostDatabase) SearchBoards(query *string, userId, postId []string, limi
 		names[i] = board.Name
 		descriptions[i] = board.Description
 		postModels := []Post{}
-		if err := d.Database.Model(BoardPost{}).Joins("JOIN posts ON posts.id = board_posts.post_id").Where("board_posts.board_id = ?", board.ID).Find(&postModels).Error; err != nil {
+		if err := d.Database.Model(Post{}).Joins("JOIN board_posts ON posts.id = board_posts.post_id").Where("board_posts.board_id = ?", board.ID).Find(&postModels).Error; err != nil {
 			return nil, nil, nil, nil, nil, err
 		}
 
@@ -575,14 +575,14 @@ func (d *PostDatabase) UnpinPostFromBoard(postId, boardId, userId string) error 
 		return ErrCannotParseUUID
 	}
 
-	tx := d.Database.Begin()
-
-	if err := tx.Joins("JOIN boards ON board_posts.board_id = boards.id").Error; err != nil {
-		tx.Rollback()
+	board := &Board{}
+	if err := d.Database.Where("id = ? AND user_id = ?", boardIdParsed, userIdParsed).First(board).Error; err != nil {
 		return errors.Join(ErrBoardNotFound, err)
 	}
 
-	if err := tx.Where("board_id = ? AND post_id = ? AND boards.user_id = ?", boardIdParsed, postIdParsed, userIdParsed).Delete(&BoardPost{}).Error; err != nil {
+	tx := d.Database.Begin()
+
+	if err := tx.Where("board_id = ? AND post_id = ?", boardIdParsed, postIdParsed).Delete(&BoardPost{}).Error; err != nil {
 		tx.Rollback()
 		return err
 	}

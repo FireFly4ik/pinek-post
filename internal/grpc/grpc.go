@@ -129,15 +129,15 @@ func (p *PostServiceServer) SearchPosts(ctx context.Context, req *pb.SearchPosts
 		query = &req.Query
 	}
 
-	postIds, userIdsRes, titles, descriptions, extensions, tagsIds, err := p.database.SearchPosts(query, userIds, tagIds, int(req.Limit), int(req.Offset))
+	postIds, userIdsRes, titles, descriptions, extensions, tagsIdsResp, err := p.database.SearchPosts(query, userIds, tagIds, int(req.Limit), int(req.Offset))
 	if err != nil {
 		return nil, err
 	}
 
 	posts := make([]*pb.Post, len(postIds))
 	for i := range postIds {
-		tags := make([]*pb.Tag, len(tagIds))
-		for j, tagId := range tagsIds[i] {
+		tags := make([]*pb.Tag, len(tagsIdsResp))
+		for j, tagId := range tagsIdsResp[i] {
 			if len(tagId) == 0 {
 				continue
 			}
