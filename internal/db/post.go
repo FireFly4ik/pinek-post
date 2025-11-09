@@ -318,7 +318,7 @@ func (d *PostDatabase) GetBoard(boardId string) (string, string, string, *string
 	}
 
 	posts := []Post{}
-	if err := d.Database.Where("board_id = ?", boardIdParsed).Find(&posts).Error; err != nil {
+	if err := d.Database.Model(BoardPost{}).Joins("JOIN posts ON posts.id = board_posts.post_id").Where("board_posts.board_id = ?", boardIdParsed).Find(&posts).Error; err != nil {
 		return "", "", "", nil, nil, err
 	}
 
@@ -350,7 +350,7 @@ func (d *PostDatabase) GetBoards(boardIds []string) ([]string, []string, []strin
 	return boardIds, userIds, names, descriptions, postsIds, nil
 }
 
-func (d *PostDatabase) SearchBoards(query *string, userId []string, limit, offset int) ([]string, []string, []string, []*string, [][][]string, error) {
+func (d *PostDatabase) SearchBoards(query *string, userId, postId []string, limit, offset int) ([]string, []string, []string, []*string, [][][]string, error) {
 	dbQuery := d.Database.Model(&Board{}).Joins("LEFT JOIN board_posts ON boards.id = board_posts.board_id")
 
 	if query != nil {
@@ -370,6 +370,19 @@ func (d *PostDatabase) SearchBoards(query *string, userId []string, limit, offse
 		dbQuery = dbQuery.Where("user_id IN ?", userIdsParsed)
 	}
 
+	if postId != nil {
+		postIdsParsed := []uuid.UUID{}
+		for _, pId := range postId {
+			postIdParsed, err := uuid.Parse(pId)
+			if err != nil {
+				return nil, nil, nil, nil, nil, ErrCannotParseUUID
+			}
+			postIdsParsed = append(postIdsParsed, postIdParsed)
+		}
+
+		dbQuery = dbQuery.Where("board_posts.post_id IN ?", postIdsParsed)
+	}
+
 	boards := []Board{}
 	if err := dbQuery.Limit(limit).Offset(offset).Find(&boards).Error; err != nil {
 		return nil, nil, nil, nil, nil, err
@@ -387,7 +400,7 @@ func (d *PostDatabase) SearchBoards(query *string, userId []string, limit, offse
 		names[i] = board.Name
 		descriptions[i] = board.Description
 		postModels := []Post{}
-		if err := d.Database.Where("board_id = ?", board.ID).Find(&postModels).Error; err != nil {
+		if err := d.Database.Model(BoardPost{}).Joins("JOIN posts ON posts.id = board_posts.post_id").Where("board_posts.board_id = ?", board.ID).Find(&postModels).Error; err != nil {
 			return nil, nil, nil, nil, nil, err
 		}
 

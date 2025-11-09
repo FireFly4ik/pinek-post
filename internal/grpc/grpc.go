@@ -275,7 +275,12 @@ func (p *PostServiceServer) SearchBoards(ctx context.Context, req *pb.SearchBoar
 		userIds = req.UserId
 	}
 
-	boardIds, userIdsRes, names, descriptions, pinnedPostIds, err := p.database.SearchBoards(query, userIds, int(req.Limit), int(req.Offset))
+	var postIds []string
+	if req.PostId != nil && len(req.PostId) > 0 {
+		postIds = req.PostId
+	}
+
+	boardIds, userIdsRes, names, descriptions, pinnedPostIds, err := p.database.SearchBoards(query, userIds, postIds, int(req.Limit), int(req.Offset))
 	if err != nil {
 		return nil, err
 	}
